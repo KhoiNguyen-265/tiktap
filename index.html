@@ -35,8 +35,10 @@
         <div id="tab3">Tab 3 content</div>
         <script src="./src/tiktap.js"></script>
         <script>
-            const tabs = new Tiktap("#tabs");
-            tabs.switch("#tab3");
+            const tabs = new Tiktap("#tabs", {
+                remember: true,
+            });
+            //tabs.switch("#tab3");
             // tabs.destroy()
             const tab2 = document.querySelector('a[href="#tab2"]');
         </script>
