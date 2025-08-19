@@ -26,6 +26,8 @@ function Tiktap(selector) {
         .filter(Boolean);
     if (this.panels.length !== this.tabs.length) return;
 
+    this._originalHTML = this.contain.innerHTML;
+
     this._init();
 }
 
@@ -56,4 +58,36 @@ Tiktap.prototype._activeTab = function (tab) {
 
     const panelActive = document.querySelector(tab.getAttribute("href"));
     panelActive.hidden = false;
+};
+
+Tiktap.prototype.switch = function (input) {
+    let tabToActive = null;
+
+    if (typeof input === "string") {
+        tabToActive = this.tabs.find(
+            (tab) => tab.getAttribute("href") === input
+        );
+        console.log(tabToActive);
+        if (!tabToActive) {
+            console.error(`Tiktap: No panel found with ID '${input}'`);
+            return;
+        }
+    } else if (this.tabs.includes(input)) {
+        tabToActive = input;
+    }
+
+    if (!tabToActive) {
+        console.error(`Tiktap: Invalid input '${input}'`);
+        return;
+    }
+
+    this._activeTab(tabToActive);
+};
+
+Tiktap.prototype.destroy = function () {
+    this.contain.innerHTML = this._originalHTML;
+    this.panels.forEach((panel) => (panel.hidden = false));
+    this.contain = null;
+    this.tabs = null;
+    this.panels = null;
 };
