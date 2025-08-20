@@ -11,7 +11,27 @@ function Tiktap(selector, options = {}) {
         return;
     }
 
-    this.panels = this.tabs
+    this.panels = this.getPanels();
+    if (this.panels.length !== this.tabs.length) return;
+
+    this.opt = Object.assign(
+        {
+            activeClassName: "tiktap--active",
+            remember: false,
+            onChange: null,
+        },
+        options
+    );
+
+    this._originalHTML = this.contain.innerHTML;
+    this._cleanRegex = /[^a-zA-Z0-9]/g;
+    this.paramKey = selector.replace(this._cleanRegex, "");
+
+    this._init();
+}
+
+Tiktap.prototype.getPanels = function () {
+    return this.tabs
         .map((tab) => {
             const panel = document.querySelector(tab.getAttribute("href"));
             if (!panel) {
@@ -24,22 +44,7 @@ function Tiktap(selector, options = {}) {
             return panel;
         })
         .filter(Boolean);
-    if (this.panels.length !== this.tabs.length) return;
-
-    this.opt = Object.assign(
-        {
-            remember: false,
-            onChange: null,
-        },
-        options
-    );
-
-    this._originalHTML = this.contain.innerHTML;
-
-    this.paramKey = selector.replace(/[^a-zA-Z0-9]/g, "");
-
-    this._init();
-}
+};
 
 Tiktap.prototype._init = function () {
     const params = new URLSearchParams(location.search);
@@ -50,7 +55,7 @@ Tiktap.prototype._init = function () {
             tabSelector &&
             this.tabs.find(
                 (tab) =>
-                    tab.getAttribute("href").replace(/[^a-zA-Z0-9]/g, "") ===
+                    tab.getAttribute("href").replace(this._cleanRegex, "") ===
                     tabSelector
             )) ||
         this.tabs[0];
@@ -81,10 +86,10 @@ Tiktap.prototype._tryActivateTab = function (tab) {
 
 Tiktap.prototype._activateTab = function (tab, triggerOnChange = true) {
     this.tabs.forEach((tab) =>
-        tab.closest("li").classList.remove("tiktap--active")
+        tab.closest("li").classList.remove(this.opt.activeClassName)
     );
 
-    tab.closest("li").classList.add("tiktap--active");
+    tab.closest("li").classList.add(this.opt.activeClassName);
 
     this.panels.forEach((panel) => (panel.hidden = true));
 
@@ -93,10 +98,10 @@ Tiktap.prototype._activateTab = function (tab, triggerOnChange = true) {
 
     if (this.opt.remember) {
         const params = new URLSearchParams(location.search);
-        const paramValue = tab
-            .getAttribute("href")
-            .replace(/[^a-zA-Z0-9]/g, "");
-        params.set(this.paramKey, paramValue);
+        params.set(
+            this.paramKey,
+            tab.getAttribute("href").replace(this._cleanRegex, "")
+        );
         history.replaceState(null, null, `?${params}`);
     }
 
@@ -138,4 +143,5 @@ Tiktap.prototype.destroy = function () {
     this.contain = null;
     this.tabs = null;
     this.panels = null;
+    this.currentTab = null;
 };
