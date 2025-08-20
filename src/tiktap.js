@@ -39,23 +39,15 @@ function Tiktap(selector, options = {}) {
 }
 
 Tiktap.prototype._init = function () {
-    // Cách 1: Lưu LocalStorage
-    // let tabToActivate = null;
-    // const savedTab = localStorage.getItem("tiktap--active");
-    // if (savedTab) {
-    //     tabToActivate = this.tabs.find(
-    //         (tab) => tab.getAttribute("href") === savedTab
-    //     );
-    // } else {
-    //     tabToActivate = this.tabs[0];
-    // }
+    const params = new URLSearchParams(location.search);
 
-    // Cách 2: sử dụng hashURL
-    const hash = location.hash;
+    const tabSelector = params.get("tab");
     const tabToActivate =
         (this.opt.remember &&
-            hash &&
-            this.tabs.find((tab) => tab.getAttribute("href") === hash)) ||
+            tabSelector &&
+            this.tabs.find(
+                (tab) => tab.getAttribute("href") === tabSelector
+            )) ||
         this.tabs[0];
 
     // Xử lý default tab1 được active
@@ -85,12 +77,12 @@ Tiktap.prototype._activateTab = function (tab) {
     const panelActive = document.querySelector(tab.getAttribute("href"));
     panelActive.hidden = false;
 
-    // Cách 1: Lưu LocalStorage
-    // localStorage.setItem("tiktap--active", tab.getAttribute("href"));
-
-    // Cách 2: sử dụng hashURL
     if (this.opt.remember) {
-        history.replaceState(null, null, tab.getAttribute("href"));
+        history.replaceState(
+            null,
+            null,
+            `?tab=${encodeURIComponent(tab.getAttribute("href"))}`
+        );
     }
 };
 
