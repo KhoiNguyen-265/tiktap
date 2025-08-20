@@ -29,6 +29,7 @@ function Tiktap(selector, options = {}) {
     this.opt = Object.assign(
         {
             remember: false,
+            onChange: null,
         },
         options
     );
@@ -44,7 +45,7 @@ Tiktap.prototype._init = function () {
     const params = new URLSearchParams(location.search);
 
     const tabSelector = params.get(`${this.paramKey}`);
-    const tabToActivate =
+    const tab =
         (this.opt.remember &&
             tabSelector &&
             this.tabs.find(
@@ -54,8 +55,10 @@ Tiktap.prototype._init = function () {
             )) ||
         this.tabs[0];
 
+    this.currentTab = tab;
+
     // Xử lý default tab1 được active
-    this._activateTab(tabToActivate);
+    this._activateTab(tab, false);
 
     // Xử lý sự kiện
     this.tabs.forEach((tab) => {
@@ -66,10 +69,17 @@ Tiktap.prototype._init = function () {
 Tiktap.prototype._handleTabClick = function (event, tab) {
     event.preventDefault();
 
-    this._activateTab(tab);
+    this._tryActivateTab(tab);
 };
 
-Tiktap.prototype._activateTab = function (tab) {
+Tiktap.prototype._tryActivateTab = function (tab) {
+    if (this.currentTab !== tab) {
+        this._activateTab(tab);
+        this.currentTab = tab;
+    }
+};
+
+Tiktap.prototype._activateTab = function (tab, triggerOnChange = true) {
     this.tabs.forEach((tab) =>
         tab.closest("li").classList.remove("tiktap--active")
     );
@@ -88,6 +98,13 @@ Tiktap.prototype._activateTab = function (tab) {
             .replace(/[^a-zA-Z0-9]/g, "");
         params.set(this.paramKey, paramValue);
         history.replaceState(null, null, `?${params}`);
+    }
+
+    if (triggerOnChange && typeof this.opt.onChange === "function") {
+        this.opt.onChange({
+            tab,
+            panel: panelActive,
+        });
     }
 };
 
@@ -112,7 +129,7 @@ Tiktap.prototype.switch = function (input) {
         return;
     }
 
-    this._activateTab(tabToActivate);
+    this._tryActivateTab(tabToActivate);
 };
 
 Tiktap.prototype.destroy = function () {
