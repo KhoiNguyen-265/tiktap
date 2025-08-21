@@ -17,6 +17,13 @@ It allows you to easily switch between tabs, remember the active tab, and custom
 
 ## Installation
 
+### CDN
+
+```html
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/gh/KhoiNguyen-265/tiktap@latest/tiktap.min.js"></script>
+```
+
 ### Use directly with JS file
 
 Download [`tiktap.min.js`](./tiktap.min.js) and include it in your HTML:
