@@ -204,12 +204,12 @@
 
                 <pre
                     class="language-html"
-                ><code>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/sondnpt00343/tabzy@v1.0.0/tabzy.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+                ><code>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/KhoiNguyen-265/tiktap@v1.0.0/tiktap.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 
                 <blockquote>
                     You can use the
                     <a
-                        href="https://github.com/sondnpt00343/tabzy/releases"
+                        href="https://github.com/KhoiNguyen-265/tiktap/releases/tag/v1.0.0"
                         target="_blank"
                         >released</a
                     >
@@ -341,5 +341,29 @@ tabs.destroy();
 
         <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+        <script src="./src/tiktap.js"></script>
+
+        <script>
+            new Tiktap("#fancy-tabs", {});
+
+            new Tiktap("#persistent-tabs", {
+                remember: true,
+            });
+
+            const tabs3 = new Tiktap("#sliding-tabs", {
+                remember: true,
+                onChange: updateActiveLine,
+            });
+            updateActiveLine();
+
+            function updateActiveLine() {
+                const tabActive = tabs3.currentTab;
+                const tabLi = tabActive.closest("li");
+                const activeLine = tabs3.contain.nextElementSibling;
+
+                activeLine.style.width = `${tabLi.offsetWidth}px`;
+                activeLine.style.transform = `translateX(${tabLi.offsetLeft}px)`;
+            }
+        </script>
     </body>
 </html>
