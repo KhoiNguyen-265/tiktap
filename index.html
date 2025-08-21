@@ -5,66 +5,341 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tiktap</title>
 
-        <link rel="stylesheet" href="./src/tiktap.css" />
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            href="./assets/favicon/favicon-96x96.png"
+            sizes="96x96"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="./assets/favicon/favicon-96x96.png/favicon.svg"
+        />
+        <link
+            rel="shortcut icon"
+            href="./assets/favicon/favicon-96x96.png/favicon.ico"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="./assets/favicon/favicon-96x96.png/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+
+        <!-- Embed Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Style CSS -->
+        <link rel="stylesheet" href="./assets/css/reset.css" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <!-- Prismjs -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css"
+        />
     </head>
-    <style>
-        .tiktap--active {
-            color: red;
-        }
-        a {
-            color: inherit;
-        }
-    </style>
     <body>
-        <ul id="tabs1">
-            <!-- Tabs -->
-            <li class="">
-                <a href="#tab1">Tab 1</a>
-            </li>
-            <li>
-                <a href="#tab2">Tab 2</a>
-            </li>
-            <li>
-                <a href="#tab3">Tab 3</a>
-            </li>
-        </ul>
-        <!-- Panels -->
-        <div id="tab1">Tab 1 content</div>
-        <div id="tab2">Tab 2 content</div>
-        <div id="tab3">Tab 3 content</div>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">Tiktap.js</h1>
+                <p class="header__desc">
+                    A lightweight and simple tab library built with pure
+                    JavaScript.
+                </p>
+                <a
+                    href="https://github.com/KhoiNguyen-265/tiktap"
+                    class="header__github"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <img src="./assets/icons/github.svg" alt="View on github" />
+                </a>
+            </div>
+        </header>
 
-        <ul id="tabs2">
-            <!-- Tabs -->
-            <li class="">
-                <a href="#tabA">Tab A</a>
-            </li>
-            <li>
-                <a href="#tabB">Tab B</a>
-            </li>
-            <li>
-                <a href="#tabC">Tab C</a>
-            </li>
-        </ul>
-        <!-- Panels -->
-        <div id="tabA">Tab A content</div>
-        <div id="tabB">Tab B content</div>
-        <div id="tabC">Tab C content</div>
-        <script src="./src/tiktap.js"></script>
-        <script>
-            const tabs1 = new Tiktap("#tabs1", {
-                remember: true,
-                onChange: (data) => {
-                    //data.tab, data.panel
-                    console.log(data);
-                },
-            });
+        <!-- Main -->
+        <main>
+            <!-- CONTAINER -->
+            <div class="container content">
+                <h2 data-bullet="1. " class="title" id="try-it-out">
+                    Try It Out
+                </h2>
+                <p>
+                    Tiktap is a lightweight <strong>tab library</strong> built
+                    with pure JavaScript. (<a
+                        href="https://github.com/KhoiNguyen-265/tiktap"
+                        >Source code available on GitHub</a
+                    >)
+                </p>
 
-            const tabs2 = new Tiktap("#tabs2", {
-                remember: true,
-            });
-            //tabs.switch("#tab3");
-            // tabs.destroy()
-            const tab2 = document.querySelector('a[href="#tab2"]');
-        </script>
+                <ul>
+                    <li>No dependencies</li>
+                    <li>Fully customizable with CSS</li>
+                    <li>Supports URL state persistence</li>
+                    <li>Simple and intuitive API</li>
+                    <li>Lightweight and optimized</li>
+                </ul>
+
+                <p>Here are some examples of how to use Tiktap:</p>
+
+                <!-- Sample 1 -->
+                <p><strong>1. Basic Tabs Demo</strong></p>
+
+                <div class="sample-1">
+                    <ul id="fancy-tabs" class="tiktap-tabs">
+                        <li><a href="#fancy1">Tab 1</a></li>
+                        <li><a href="#fancy2">Tab 2</a></li>
+                        <li><a href="#fancy3">Tab 3</a></li>
+                        <li><a href="#fancy4">Tab 4</a></li>
+                    </ul>
+                    <div id="fancy1" class="tiktap-panel">
+                        Welcome to Tab 1! This is the first tab.
+                    </div>
+                    <div id="fancy2" class="tiktap-panel" hidden>
+                        Here’s Tab 2 with some cool content.
+                    </div>
+                    <div id="fancy3" class="tiktap-panel" hidden>
+                        Tab 3 is here for you to explore.
+                    </div>
+                    <div id="fancy4" class="tiktap-panel" hidden>
+                        Tab 4 has some unique info.
+                    </div>
+                </div>
+
+                <!-- Sample 2 -->
+                <p><strong>2. Persistent Tabs Demo</strong></p>
+
+                <div class="sample-2">
+                    <ul id="persistent-tabs" class="tiktap-tabs">
+                        <li><a href="#persist1">News</a></li>
+                        <li><a href="#persist2">Sports</a></li>
+                        <li><a href="#persist3">Tech</a></li>
+                        <li><a href="#persist4">Lifestyle</a></li>
+                    </ul>
+                    <div id="persist1" class="tiktap-panel">
+                        Latest news updates from around the world.
+                    </div>
+                    <div id="persist2" class="tiktap-panel" hidden>
+                        Top sports highlights and scores.
+                    </div>
+                    <div id="persist3" class="tiktap-panel" hidden>
+                        Latest trends in technology.
+                    </div>
+                    <div id="persist4" class="tiktap-panel" hidden>
+                        Tips for a better lifestyle.
+                    </div>
+                </div>
+
+                <!-- Sample 3 -->
+                <p><strong>3. Sliding Line Tabs Demo</strong></p>
+
+                <div class="sample-3">
+                    <div class="tiktap-wrapper">
+                        <ul id="sliding-tabs" class="tiktap-tabs sliding">
+                            <li><a href="#slide1">Home</a></li>
+                            <li><a href="#slide2">About</a></li>
+                            <li><a href="#slide3">Services</a></li>
+                            <li><a href="#slide4">Portfolio</a></li>
+                        </ul>
+                        <div class="active-line"></div>
+                    </div>
+                    <div id="slide1" class="tiktap-panel">
+                        Welcome to the Home tab!
+                    </div>
+                    <div id="slide2" class="tiktap-panel" hidden>
+                        About us and our mission.
+                    </div>
+                    <div id="slide3" class="tiktap-panel" hidden>
+                        Our services in detail.
+                    </div>
+                    <div id="slide4" class="tiktap-panel" hidden>
+                        Check out our portfolio.
+                    </div>
+                </div>
+
+                <h2 data-bullet="2." class="title" id="installation">
+                    Installation
+                </h2>
+                <table class="methods">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th class="w60">Steps</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>Direct Download</td>
+                        <td>
+                            <a
+                                href="https://github.com/KhoiNguyen-265/tiktap/archive/refs/heads/main.zip"
+                                title="Download Tiktap"
+                            >
+                                Download ZIP
+                            </a>
+                            <p>
+                                Simply extract the ZIP file and use the
+                                <code class="hl-code">tiktap.min.js</code> and
+                                <code class="hl-code">tiktap.min.css</code>
+                                files in your project.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    Tiktap provides a small CSS file that you can include
+                    directly via a CDN link. This makes it easy to integrate
+                    into your project and customize as needed.
+                </p>
+
+                <p>Include the Tiktap JavaScript file in your project:</p>
+
+                <pre
+                    class="language-html"
+                ><code>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/sondnpt00343/tabzy@v1.0.0/tabzy.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+                <blockquote>
+                    You can use the
+                    <a
+                        href="https://github.com/sondnpt00343/tabzy/releases"
+                        target="_blank"
+                        >released</a
+                    >
+                    versions of Tiktap available here.
+                </blockquote>
+
+                <h2 data-bullet="3. " class="title" id="usage">Usage</h2>
+                <p>
+                    Here’s the basic HTML structure you’ll need to set up
+                    Tiktap:
+                </p>
+
+                <pre
+                    class="language-html"
+                ><code>&lt;ul id=&quot;my-tabs&quot;&gt;
+    &lt;li&gt;&lt;a href=&quot;#panel1&quot;&gt;Tab 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#panel2&quot;&gt;Tab 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&quot;panel1&quot;&gt;Content 1&lt;/div&gt;
+&lt;div id=&quot;panel2&quot;&gt;Content 2&lt;/div&gt;</code></pre>
+
+                <p>And here’s how you can use it with JavaScript:</p>
+
+                <pre
+                    class="language-javascript"
+                ><code>// Initialize a new tab instance
+const tabs = new Tiktap('#my-tabs', {
+    activeClassName: 'tiktap--active',
+    remember: true, // Keeps the active tab in the URL
+    onChange: function({ tab, panel }) {
+        console.log(`Switched to ${tab.textContent}`);
+    }
+});
+
+// Switch to a specific tab
+tabs.switch('#panel2');
+
+// Destroy the tab instance
+tabs.destroy();
+</code></pre>
+
+                <h2 data-bullet="4. " class="title" id="options">Options</h2>
+                <table class="methods">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Type</th>
+                            <th class="w60">Description</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>activeClassName</td>
+                        <td>string</td>
+                        <td>
+                            CSS class applied to the active tab (default:
+                            <code class="hl-code">'tiktap--active'</code>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>remember</td>
+                        <td>boolean</td>
+                        <td>
+                            Persists the active tab state in the URL (default:
+                            <code class="hl-code">false</code>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>onChange</td>
+                        <td>function</td>
+                        <td>
+                            A callback function that runs whenever the active
+                            tab changes. It receives an object with two
+                            properties:
+                            <code class="hl-code">tab</code> (the DOM element of
+                            the newly active tab) and
+                            <code class="hl-code">panel</code> (the DOM element
+                            of the corresponding content panel). By default,
+                            it’s set to <code class="hl-code">null</code>,
+                            meaning no action is taken unless you define a
+                            function.
+                        </td>
+                    </tr>
+                </table>
+
+                <h2 data-bullet="5. " class="title" id="api">API</h2>
+                <table class="methods">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th class="w60">Description</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>switch(input)</td>
+                        <td>
+                            Switches to a specific tab based on the provided
+                            <code class="hl-code">input</code>. The
+                            <code class="hl-code">input</code> can be either:
+                            (1) a <strong>string</strong> representing the
+                            <code class="hl-code">href</code> attribute of a tab
+                            (e.g., <code class="hl-code">'#panel2'</code>), or
+                            (2) a <strong>DOM element</strong> that is one of
+                            the tab links (e.g., an
+                            <code class="hl-code">&lt;a&gt;</code> element from
+                            the tabs list).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>destroy()</td>
+                        <td>
+                            Removes all Tiktap functionality, restores the
+                            original HTML, and unbinds events.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__section">
+                    <p>
+                        This is a small project included in the "Practice with
+                        DOM" section of the JavaScript Pro course.
+                    </p>
+                    <p>&copy; 2025 Togbox.js. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     </body>
 </html>

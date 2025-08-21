@@ -63,7 +63,7 @@ Tiktap.prototype._init = function () {
     this.currentTab = tab;
 
     // Xử lý default tab1 được active
-    this._activateTab(tab, false);
+    this._activateTab(tab, false, false);
 
     // Xử lý sự kiện
     this.tabs.forEach((tab) => {
@@ -79,12 +79,16 @@ Tiktap.prototype._handleTabClick = function (event, tab) {
 
 Tiktap.prototype._tryActivateTab = function (tab) {
     if (this.currentTab !== tab) {
-        this._activateTab(tab);
         this.currentTab = tab;
+        this._activateTab(tab);
     }
 };
 
-Tiktap.prototype._activateTab = function (tab, triggerOnChange = true) {
+Tiktap.prototype._activateTab = function (
+    tab,
+    triggerOnChange = true,
+    updateURL = this.opt.remember
+) {
     this.tabs.forEach((tab) =>
         tab.closest("li").classList.remove(this.opt.activeClassName)
     );
@@ -96,7 +100,7 @@ Tiktap.prototype._activateTab = function (tab, triggerOnChange = true) {
     const panelActive = document.querySelector(tab.getAttribute("href"));
     panelActive.hidden = false;
 
-    if (this.opt.remember) {
+    if (updateURL) {
         const params = new URLSearchParams(location.search);
         params.set(
             this.paramKey,

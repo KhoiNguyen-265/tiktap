@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "minify": "terser src/tiktap.js -o tiktap.min.js && csso src/tiktap.css -o tiktap.min.css"
+        "minify": "terser src/tiktap.js -o tiktap.min.js"
     },
     "dependencies": {
         "csso-cli": "^4.0.2",
